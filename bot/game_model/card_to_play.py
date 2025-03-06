@@ -54,6 +54,9 @@ class CardToPlay:
         """
         return self.discard
 
+    def __str__(self):
+        return f"CardToPlay(content={self.content}, discard={self.discard})"
+
     def __eq__(self, other):
         """
         Compara a igualdade dos objetos com base no conteúdo e tipo de carta (descartada ou não).

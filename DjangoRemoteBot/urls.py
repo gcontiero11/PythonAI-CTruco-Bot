@@ -16,16 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bot import views
-from bot.views import getMaoDeOnzeResponse
-from bot.views import getName
+from bot.views import BotViews
+
+bot_views = BotViews()
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('mao-de-onze/', getMaoDeOnzeResponse),
-    path('name/',getName)
-    # path('if-raises/', botActions.decideIfRaises),	
-    # path('choose-card/', botActions.chooseCard),
-    # path('raise-response/', botActions.getRaiseResponse),
-    # path('name/', botActions.getName),
+    path('admin', admin.site.urls),
+    path('mao-de-onze', bot_views.get_mao_de_onze_response),
+    path('name', bot_views.get_name),
+    path('decide-if-raises', bot_views.decide_if_raises),	
+    path('choose-card', bot_views.choose_card),
+    path('raise-response', bot_views.get_raise_response),
 ]

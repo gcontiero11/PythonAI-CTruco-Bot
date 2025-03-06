@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from django.http import JsonResponse
 from bot.game_model.card_to_play import CardToPlay
 from bot.game_model.game_intel import GameIntel
@@ -21,6 +20,5 @@ class BotServiceProvider(ABC):
   def get_raise_response(self,intel: GameIntel) -> int:
     raise NotImplementedError
   
-  def getName(self) -> str:
-    return JsonResponse({"name": "Gustavo"})
-    # return self.__class__.__name__
+  def get_name(self) -> str:
+    return JsonResponse({"name": self.__class__.__name__})

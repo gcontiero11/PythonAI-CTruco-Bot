@@ -207,6 +207,13 @@ class TrucoCard:
     '''
     def is_ouros(self, vira: 'TrucoCard') -> bool:
         return self.is_manilha(vira) and self.suit.name == "DIAMONDS"
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> 'TrucoCard':
+        return cls(
+            rank=data["rank"],  
+            suit=data["suit"]
+        )
 
     def __eq__(self, other):
         if not isinstance(other, TrucoCard):
@@ -214,4 +221,4 @@ class TrucoCard:
         return self.rank == other.rank and self.suit == other.suit
 
     def __repr__(self):
-        return f"[{self.rank.name} {self.suit.name}]"
+        return f"[{self.rank}, {self.suit}]"

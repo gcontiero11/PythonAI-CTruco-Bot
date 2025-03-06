@@ -10,7 +10,7 @@ class DjangoRemoteBot(BotServiceProvider):
         return False
 
     def decide_if_raises(self, intel: GameIntel) -> bool:
-        return False
+        return True
 
     def choose_card(self, intel: GameIntel) -> CardToPlay:
         return CardToPlay(intel.cards[0], False)
