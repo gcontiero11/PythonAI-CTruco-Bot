@@ -1,1 +1,10 @@
-**/__pycache__/
+# Ambiente virtual
+env/
+
+# Arquivos Python
+*.pyc
+__pycache__/
+
+# Configurações de IDE
+.vscode/
+.idea/
