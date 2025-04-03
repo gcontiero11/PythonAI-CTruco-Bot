@@ -1,6 +1,6 @@
 from bot.game_model.game_intel import GameIntel
 from bot.game_model.card_to_play import CardToPlay
-from ai import Ai  # Supondo que a classe Ai esteja em um arquivo chamado ai.py
+from ai_torch_bot import Ai  # Supondo que a classe Ai esteja em um arquivo chamado ai.py
 
 # Exemplo de dados de treinamento (substitua pelos seus dados reais)
 training_data = [
