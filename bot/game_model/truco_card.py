@@ -215,6 +215,13 @@ class TrucoCard:
             suit=data["suit"]
         )
 
+    def to_numeric(self):
+        """
+        Converte a carta em um número adequado para entrada da IA.
+        """
+        suit_mapping = {"espadas": 1, "copas": 2, "ouros": 3, "paus": 4}
+        return self.value + suit_mapping[self.suit] * 0.1  # Exemplo: 3.1 para 3 de espadas
+
     def __eq__(self, other):
         if not isinstance(other, TrucoCard):
             return False

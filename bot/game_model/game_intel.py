@@ -1,5 +1,6 @@
 from typing import List, Optional
 from bot.game_model.truco_card import TrucoCard
+import numpy as np
 
 
 class GameIntel:
@@ -150,3 +151,26 @@ class GameIntel:
     def __hash__(self):
         return hash((tuple(self.cards), tuple(self.open_cards), self.vira, self.opponent_card,
                      tuple(self.round_results), self.score, self.opponent_score, self.hand_points))
+
+
+def extract_features(game_intel: GameIntel):
+    """
+    Converte os atributos de GameIntel em um vetor de features numérico.
+    """
+    # Converte cartas para valores numéricos
+    cards_features = [card.to_numeric() for card in game_intel.get_cards()]
+    open_cards_features = [card.to_numeric() for card in game_intel.get_open_cards()]
+    vira_feature = game_intel.get_vira().to_numeric()
+    
+    # Converte os resultados das rodadas para valores numéricos (1 = vitória, 0 = derrota/empate)
+    round_results_encoded = [1 if res == GameIntel.RoundResult.WON else 0 for res in game_intel.get_round_results()]
+    
+    # Obtém valores inteiros de placar e pontos
+    score = game_intel.get_score()
+    opponent_score = game_intel.get_opponent_score()
+    hand_points = game_intel.get_hand_points()
+
+    # Junta tudo em um único vetor de entrada
+    features = cards_features + open_cards_features + [vira_feature] + round_results_encoded + [score, opponent_score, hand_points]
+    
+    return np.array(features, dtype=np.float32)
