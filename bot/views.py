@@ -10,23 +10,21 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import json
 
 class BotViews(viewsets.ViewSet, BotServiceProvider):
 
   def __init__(self):
     self.bot_instance = DjangoRemoteBot()
 
+
+
   @method_decorator(csrf_exempt)
   @action(detail=False, methods=['post'], url_path='get_mao_de_onze_response')
   def get_mao_de_onze_response(self, request: Request):
-    if not isinstance(request, Request): 
-      request = Request(request, parsers=[JSONParser()]) 
-
-    intel: GameIntel = GameIntel.from_dict(request.data)
-    res = self.bot_instance.get_mao_de_onze_response(intel)
-    
-    print(res)
-    return JsonResponse({"answer": res})
+    res = self.bot_instance.get_mao_de_onze_response(request.data)
+    return HttpResponse(json.dumps(res), content_type="application/json")
 
   @method_decorator(csrf_exempt)
   @action(detail=False, methods=['post'], url_path='decide_if_raises')   
@@ -34,8 +32,8 @@ class BotViews(viewsets.ViewSet, BotServiceProvider):
     if not isinstance(request, Request): 
       request = Request(request, parsers=[JSONParser()]) 
 
-    intel: GameIntel = GameIntel.from_dict(request.data)
-    res = self.bot_instance.decide_if_raises(intel)
+    # intel: GameIntel = GameIntel.from_dict(request.data)
+    res = self.bot_instance.decide_if_raises(request.data)
 
     return JsonResponse({"answer": res})
   
@@ -46,8 +44,8 @@ class BotViews(viewsets.ViewSet, BotServiceProvider):
     if not isinstance(request, Request): 
       request = Request(request, parsers=[JSONParser()]) 
 
-    intel: GameIntel = GameIntel.from_dict(request.data)
-    res: CardToPlay = self.bot_instance.choose_card(intel)
+    # intel: GameIntel = GameIntel.from_dict(request.data)
+    res: CardToPlay = self.bot_instance.choose_card(request.data)
 
     if res is None:
       return Response({"answer": "None"}, status=400)
@@ -69,8 +67,8 @@ class BotViews(viewsets.ViewSet, BotServiceProvider):
     if not isinstance(request, Request): 
       request = Request(request, parsers=[JSONParser()]) 
 
-    intel: GameIntel = GameIntel.from_dict(request.data)
-    res: int = self.bot_instance.get_raise_response(intel)
+    # intel: GameIntel = GameIntel.from_dict(request.data)
+    res: int = self.bot_instance.get_raise_response(request.data)
 
     return JsonResponse({"answer": res}) 
 
