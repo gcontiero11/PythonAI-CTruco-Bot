@@ -1,6 +1,6 @@
 from typing import List, Optional
 from bot.game_model.truco_card import TrucoCard
-import numpy as np
+# import numpy as np
 
 
 class GameIntel:
@@ -173,4 +173,5 @@ def extract_features(game_intel: GameIntel):
     # Junta tudo em um único vetor de entrada
     features = cards_features + open_cards_features + [vira_feature] + round_results_encoded + [score, opponent_score, hand_points]
     
-    return np.array(features, dtype=np.float32)
+    # return np.array(features, dtype=np.float32)
+    return features  # Temporário: retorna lista em vez de array NumPy

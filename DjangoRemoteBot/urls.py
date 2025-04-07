@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('mao-de-onze', bot_views.get_mao_de_onze_response),
     path('name', bot_views.get_name),
-    path('decide-if-raises', bot_views.decide_if_raises),	
+    path('if-raises', bot_views.decide_if_raises),	
     path('choose-card', bot_views.choose_card),
     path('raise-response', bot_views.get_raise_response),
 ]
