@@ -21,4 +21,4 @@ class BotServiceProvider(ABC):
     raise NotImplementedError
   
   def get_name(self) -> str:
-    return JsonResponse({"name": self.__class__.__name__})
+    return self.__class__.__name__

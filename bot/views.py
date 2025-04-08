@@ -8,6 +8,7 @@ from rest_framework.request import Request
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import action
 from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from bot.serializers.serializer import GameIntelSerializer
@@ -58,13 +59,8 @@ class BotViews(viewsets.ViewSet, BotServiceProvider):
             if res is None:
                 return JsonResponse(None, safe=False)
             
-            return JsonResponse({
-                "content": {
-                    "rank": res.content.rank,
-                    "suit": res.content.suit
-                },
-                "discard": res.discard
-            })
+            return JsonResponse(res.to_dict())
+        
         return JsonResponse(serializer.errors, status=400)
   
     @method_decorator(csrf_exempt)
@@ -82,6 +78,6 @@ class BotViews(viewsets.ViewSet, BotServiceProvider):
 
     @method_decorator(csrf_exempt)
     @action(detail=False, methods=['get'], url_path='get_name')
-    def get_name(self,request: Request):
+    def get_name(self, request: Request):
         name = self.bot_instance.get_name()
-        return JsonResponse(name, safe=False) 
+        return JsonResponse(name, safe=False)

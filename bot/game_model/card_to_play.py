@@ -77,3 +77,15 @@ class CardToPlay:
         :return: código hash baseado no conteúdo e tipo da carta.
         """
         return hash((self.content, self.discard))
+
+    def to_dict(self):
+        """
+        Converte o objeto CardToPlay para um dicionário.
+        """
+        return {
+            "content": {
+                "rank": self.content.rank,
+                "suit": self.content.suit
+            },
+            "discard": self.discard
+        }

@@ -18,13 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from bot.views import BotViews
 
-bot_views = BotViews()
-
 urlpatterns = [
     path('admin', admin.site.urls),
-    path('mao-de-onze', bot_views.get_mao_de_onze_response),
-    path('name', bot_views.get_name),
-    path('if-raises', bot_views.decide_if_raises),	
-    path('choose-card', bot_views.choose_card),
-    path('raise-response', bot_views.get_raise_response),
+    path('mao-de-onze', BotViews.as_view({'post': 'get_mao_de_onze_response'})),
+    path('name', BotViews.as_view({'get': 'get_name'})),
+    path('if-raises', BotViews.as_view({'post': 'decide_if_raises'})),
+    path('choose-card', BotViews.as_view({'post': 'choose_card'})),
+    path('raise-response', BotViews.as_view({'post': 'get_raise_response'})),
 ]
