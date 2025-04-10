@@ -38,6 +38,7 @@ class BotViews(viewsets.ViewSet, BotServiceProvider):
         if not isinstance(request, Request): 
             request = Request(request, parsers=[JSONParser()]) 
         
+        print(request.data)
         serializer = GameIntelSerializer(data=request.data)
         if serializer.is_valid():
             game_intel = serializer.save()

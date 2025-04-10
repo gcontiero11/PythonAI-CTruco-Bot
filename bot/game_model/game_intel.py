@@ -71,21 +71,14 @@ class GameIntel:
 
     @classmethod
     def from_dict(cls, data: dict) -> 'GameIntel':
-        current_player = next(
-            (p for p in data["players"] if p["uuid"] == data["currentPlayerUuid"]), None
-        )
-
-        if not current_player:
-            raise ValueError("Current Player not found")
-
         return cls(
-            cards=[TrucoCard.from_dict(card) for card in current_player["cards"]],
+            cards=[TrucoCard.from_dict(card) for card in data["cards"]],
             open_cards=[TrucoCard.from_dict(card) for card in data.get("openCards", [])],
             vira=TrucoCard.from_dict(data["vira"]),
-            opponent_card=TrucoCard.from_dict(data["cardToPlayAgainst"]) if data.get("cardToPlayAgainst") else None,
-            round_results=data.get("roundWinnersUuid", []),
-            score=data["currentPlayerScore"],
-            opponent_score=data["currentOpponentScore"],
+            opponent_card=TrucoCard.from_dict(data["opponentCard"]) if data.get("opponentCard") else None,
+            round_results=data.get("roundResults", []),
+            score=data["score"],
+            opponent_score=data["opponentScore"],
             hand_points=data["handPoints"]
         )
 

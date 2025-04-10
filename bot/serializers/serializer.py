@@ -11,22 +11,17 @@ class PlayerSerializer(serializers.Serializer):
     cards = TrucoCardSerializer(many=True)
 
 class GameIntelSerializer(serializers.Serializer):
-    players = PlayerSerializer(many=True)
-    currentPlayerUuid = serializers.CharField()
-    # Campo opcional, pois pode não vir na requisição
+    cards = TrucoCardSerializer(many=True)
     openCards = TrucoCardSerializer(many=True, required=False, default=[])
     vira = TrucoCardSerializer()
-    # Campo opcional, se não houver carta para jogar contra
-    cardToPlayAgainst = TrucoCardSerializer(required=False, allow_null=True)
-    roundWinnersUuid = serializers.ListField(
+    opponentCard = TrucoCardSerializer(required=False, allow_null=True)
+    roundResults = serializers.ListField(
         child=serializers.CharField(), required=False, default=[]
     )
-    currentPlayerScore = serializers.IntegerField()
-    currentOpponentScore = serializers.IntegerField()
+    score = serializers.IntegerField()
+    opponentScore = serializers.IntegerField()
     handPoints = serializers.IntegerField()
 
     def create(self, validated_data):
-        # Aqui você pode converter os dados validados para uma instância de GameIntel.
-        # Basta utilizar o método from_dict da sua classe.
-        from bot.game_model.game_intel import GameIntel  # ajuste o caminho conforme necessário
+        from bot.game_model.game_intel import GameIntel
         return GameIntel.from_dict(validated_data)
