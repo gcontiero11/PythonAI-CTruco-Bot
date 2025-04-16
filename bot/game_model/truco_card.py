@@ -229,3 +229,12 @@ class TrucoCard:
 
     def __repr__(self):
         return f"[{self.rank}, {self.suit}]"
+
+    def to_dict(self) -> dict:
+        """
+        Converte a carta para um dicionário.
+        """
+        return {
+            "rank": self.rank.value(),
+            "suit": self.suit.value()
+        }
