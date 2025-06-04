@@ -82,51 +82,6 @@ class GameIntel:
             hand_points=data["handPoints"]
         )
 
-    class StepBuilder:
-        def __init__(self):
-            self.cards = None
-            self.open_cards = None
-            self.vira = None
-            self.opponent_card = None
-            self.round_results = None
-            self.score = 0
-            self.opponent_score = 0
-            self.hand_points = 0
-
-        @staticmethod
-        def with_():
-            return GameIntel.StepBuilder()
-
-        def game_info(self, round_results: List[str], open_cards: List['TrucoCard'], vira: 'TrucoCard', hand_points: int):
-            self.round_results = round_results.copy()
-            self.open_cards = open_cards.copy()
-            self.vira = vira
-            self.hand_points = hand_points
-            return self
-
-        def bot_info(self, cards: List['TrucoCard'], score: int):
-            self.cards = cards
-            self.score = score
-            return self
-
-        def opponent_score(self, opponent_score: int):
-            self.opponent_score = opponent_score
-            return self
-
-        def opponent_card(self, card: 'TrucoCard'):
-            """
-            Passo opcional do builder. Define a carta do oponente, caso exista.
-            """
-            self.opponent_card = card
-            return self
-
-        def build(self) -> 'GameIntel':
-            """
-            Conclui o processo de construção e retorna o objeto GameIntel.
-            """
-            return GameIntel(self.cards, self.open_cards, self.vira, self.opponent_card, self.round_results,
-                             self.score, self.opponent_score, self.hand_points)
-
     def __eq__(self, other):
         if self is other:
             return True
